@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     apiSecret: 'arnop',
     // Keys within public are also exposed client-side
     public: {
+      apiBase: 'http://localhost:1337/api/',
       appname: 'ARNOProducciones API',
       appnameslug: 'arnop-api',
       appdescription: 'API de ARNOProducciones',
