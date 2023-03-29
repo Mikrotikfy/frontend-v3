@@ -9,6 +9,12 @@
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.4.1",
-    "nuxt": "^3.2.2"
+    "@types/node": "^18.15.11",
+    "@types/qs": "^6.9.7",
+    "nuxt": "^3.3.2"
+  },
+  "dependencies": {
+    "qs": "^6.11.1",
+    "vuetify": "^3.1.12"
   }
 }
