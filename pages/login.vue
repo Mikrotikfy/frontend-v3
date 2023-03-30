@@ -30,14 +30,14 @@
     await getUserInfo(login)
     
   }
-  async function getUserInfo (auth:Ref<StrapiAuth | null | unknown>): Promise<any> {
+  async function getUserInfo (auth:Ref<StrapiAuth | null | unknown>) {
     const query = qs.stringify({
       populate: ['role', 'cities', 'cities.mikrotiks', 'clienttypes', 'menus']
     },
     {
       encodeValuesOnly: true
     })
-    const { data: user } = await useFetch(`${runtimeConfig.public.apiBase}users/${auth.value?.user.id}?${query}`, {
+    const { data: user } = await useFetch<arnopUser | null>(`${runtimeConfig.public.apiBase}users/${auth.value?.user.id}?${query}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -45,7 +45,7 @@
       }
     })
     localStorage.setItem('user', JSON.stringify(user))
-    await navigateTo('/')
+    await navigateTo(`/?city=${user.value?.cities[0].name}&clienttype=${user.value?.clienttypes[0].name}`)
   }
 </script>
 <template>
