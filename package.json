@@ -5,16 +5,21 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "reset": "rm -rf .nuxt node_modules .output package-lock.json && npm install"
   },
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "^6.4.1",
+    "@kevinmarrec/nuxt-pwa": "^0.13.0",
     "@types/node": "^18.15.11",
     "@types/qs": "^6.9.7",
-    "nuxt": "^3.3.2"
+    "nuxt": "^3.3.2",
+    "nuxt-icon": "^0.1.8",
+		"sass": "^1.56.1",
+		"vuetify": "^3.1.12",
+    "@nuxtjs/google-fonts": "^3.0.0-1"
   },
   "dependencies": {
     "qs": "^6.11.1",
-    "vuetify": "^3.1.12"
+    "vite-plugin-vuetify": "^1.0.0"
   }
 }

@@ -4,5 +4,5 @@
   })
 </script>
 <template>
-  <h1>clients</h1>
+  <MainHeader />
 </template>
