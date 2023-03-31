@@ -17,7 +17,7 @@
   >
     <v-bottom-navigation
       :elevation="1"
-      style="margin-top:-50px;"
+      style="margin-top:-50px;padding-top:-10px;"
       class="position-relative rounded-lg"
     >
       <v-btn

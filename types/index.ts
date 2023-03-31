@@ -114,5 +114,121 @@ declare global {
     createdAt: string,
     id: number,
   }
+  type strapiData = {
+    data: {
+      results: [arnopClient];
+      pagination: {
+        page: number;
+        pageSize: number;
+        pageCount: number;
+        total: number;
+      };
+    };
+  };
+
+  type arnopClient = {
+    id: number;
+    code: string;
+    dni: string;
+    name: string;
+    address: string;
+    wifi_ssid: string;
+    wifi_password: string;
+    newModel: number;
+    active: boolean;
+    phone: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    ipmodel: any;
+    email: any;
+    indebt: boolean;
+    billingmonth: any;
+    billingyear: any;
+    balance: any;
+    stratum: any;
+    city: City;
+    plan: Plan;
+    addresses: Address[];
+    neighborhood: Neighborhood;
+    technology: Technology;
+    clienttype: ClientType;
+    vlan: any;
+    offer: Offer;
+    offermovements: any[];
+    debtmovements: any[];
+    monthlybills: any[];
+    tvspec: any;
+  };
+  type Neighborhood = {
+    id: number;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+  };
+  
+  type Address = {
+    id: number;
+    address: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    neighborhood: Neighborhood;
+  };
+  
+  type City = {
+    id: number;
+    name: string;
+    color: string;
+    active: string;
+    count: string;
+    countActive: string;
+    countDisable: string;
+    countRetired: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+  };
+  
+  type Plan = {
+    id: number;
+    name: string;
+    mikrotik_name: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    mikrotik_bandwidth: string;
+  };
+  
+  type Technology = {
+    id: number;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+  };
+  
+  type ClientType = {
+    id: number;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    icon: string;
+  };
+  
+  type Offer = {
+    id: number;
+    name: string;
+    price: number;
+    currency: string;
+    createdAt: string | null;
+    updatedAt: string;
+    publishedAt: string;
+    affiliation_price: number;
+    plan: Plan;
+  };
+  
 
 }
