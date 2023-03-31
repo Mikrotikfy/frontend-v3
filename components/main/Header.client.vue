@@ -40,14 +40,13 @@
   }
 </script>
 <template>
-  <div class="d-flex justify-center" style="margin-top:-64px;">
+  <v-container fluid class="d-flex justify-center py-0" style="margin-top:-64px;">
     <v-app-bar
       color="white"
       prominent
       class="rounded-lg mt-4 position-relative"
-      style="width:98%;"
-      elevation="2"
       floating
+      :elevation="1"
     >
       <v-app-bar-nav-icon v-if="isMobile" variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
@@ -98,7 +97,7 @@
         item-value="id"
       ></v-list>
     </v-navigation-drawer>
-  </div>
+  </v-container>
 </template>
 
 <style>

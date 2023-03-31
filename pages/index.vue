@@ -5,4 +5,6 @@
 </script>
 <template>
   <MainHeader />
+  <MainBody />
+  <MainFooter />
 </template>
