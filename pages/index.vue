@@ -4,7 +4,5 @@
   })
 </script>
 <template>
-  <MainHeader />
-  <MainBody />
-  <MainFooter />
+  uwu
 </template>

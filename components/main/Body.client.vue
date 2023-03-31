@@ -1,12 +1,3 @@
-<script setup lang="ts">
-  const { $isDesktop } = useNuxtApp()
-  const isDesktop = ref()
-
-  const detectScreenSize = () => {
-    isDesktop.value = $isDesktop()
-  }
-  window.addEventListener('resize', detectScreenSize)
-</script>
 <template>
   <v-container
     fluid

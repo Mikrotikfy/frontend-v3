@@ -83,7 +83,18 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn variant="text" icon="mdi-dots-vertical"></v-btn>
+      <v-menu
+        transition="slide-y-transition"
+      >
+        <template v-slot:activator="{ props }">
+          <v-btn variant="text" icon="mdi-dots-vertical" v-bind="props"></v-btn>
+        </template>
+        <v-list>
+          <v-list-item>
+            <v-list-item-title>Cerrar Sesion</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-app-bar>
 
     <v-navigation-drawer
