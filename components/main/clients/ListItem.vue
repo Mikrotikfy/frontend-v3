@@ -16,7 +16,11 @@
     window.addEventListener('resize', detectScreenSize)
 </script>
 <template>
-  <v-list-item>
+  <v-list-item
+    active-color="primary"
+    variant="text"
+    :value="props.client.id"
+  >
     <template v-if="isDesktop" v-slot:prepend="{ isActive }">
       <v-list-item-action start>
         <v-checkbox-btn :model-value="isActive"></v-checkbox-btn>
@@ -28,5 +32,5 @@
     <v-list-item-subtitle>
       CARRERA 11A # 2 - 35 | 1110601254 | 3125090684 | GALAN
     </v-list-item-subtitle>
-    </v-list-item>
+  </v-list-item>
 </template>

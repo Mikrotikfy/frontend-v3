@@ -116,7 +116,7 @@ declare global {
   }
   type strapiData = {
     data: {
-      results: [arnopClient];
+      results: [arnopClient] | null;
       pagination: {
         page: number;
         pageSize: number;
