@@ -40,11 +40,11 @@
   }
 </script>
 <template>
-  <v-container fluid class="d-flex justify-center py-0" style="margin-top:-64px;">
+  <v-container fluid class="d-flex justify-center py-0" :style="isMobile ? '' : 'margin-top:-64px;'">
     <v-app-bar
       color="white"
       prominent
-      class="rounded-lg mt-4 position-relative"
+      :class="isMobile ? 'rounded-lg position-relative' : 'rounded-lg mt-4 position-relative'"
       floating
       :elevation="1"
     >

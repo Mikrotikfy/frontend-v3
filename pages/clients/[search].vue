@@ -1,4 +1,17 @@
 <script lang="ts" setup>
+  definePageMeta({
+    middleware: ['authenticated']
+  })
+
+  const { $isMobile, $isDesktop } = useNuxtApp()
+  const isMobile = ref()
+  const isDesktop = ref()
+  const detectScreenSize = () => {
+    isMobile.value = $isMobile()
+    isDesktop.value = $isDesktop()
+  }
+  window.addEventListener('resize', detectScreenSize)
+
   const route = useRoute()
   const runtimeConfig = useRuntimeConfig()
   const token = JSON.parse(localStorage.getItem('auth') || '{}')._value?.jwt || ''
@@ -24,6 +37,7 @@
 <template>
   <v-container fluid>
     <v-text-field
+      v-if="isDesktop"
       v-model="search"
       label="Busqueda por Codigo, Nombre, Cedula, Barrio, Etc..."
       variant="solo"
@@ -38,9 +52,13 @@
       indeterminate
       color="primary"
     />
-    <v-row>
+    <v-row style="overflow-y: scroll;overflow-y: scroll;height: calc(100vh - 258px);">
       <v-col>
-        <v-list v-model="selected" lines="two" select-strategy="classic">
+        <v-list
+          v-model="selected"
+          lines="two"
+          select-strategy="classic"
+        >
 
           <MainClientsListItem
             v-for="client in clients!.data.results"
@@ -51,5 +69,17 @@
         </v-list>
       </v-col>
     </v-row>
+    <div class="fill-height">
+      <div class="w-100" style="position: absolute;bottom:0px;padding-right:30px;">
+        <v-text-field
+          v-if="isMobile"
+          v-model="search"
+          label="Busqueda por Codigo, Nombre, Cedula, Barrio, Etc..."
+          variant="solo"
+          prepend-inner-icon="mdi-magnify"
+          @keyup.enter="updateSearch"
+        />
+      </div>
+    </div>
   </v-container>
 </template>
