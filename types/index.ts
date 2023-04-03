@@ -106,6 +106,7 @@ declare global {
 
   type arnopCity = {
     active: string,
+    name: string,
     color: string,
     count: string,
     countActive: string,

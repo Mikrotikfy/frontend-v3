@@ -13,6 +13,7 @@ export default defineNuxtConfig({
   modules: [
     "nuxt-icon",
 		"@kevinmarrec/nuxt-pwa",
+		'@pinia/nuxt',
     async (options, nuxt) => {
 			// @ts-ignore
 			nuxt.hooks.hook("vite:extendConfig", (config) => config.plugins.push(vuetify()));

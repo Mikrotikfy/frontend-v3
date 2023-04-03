@@ -1,4 +1,9 @@
 <script lang="ts" setup>
+  import { useScreenSize } from '~~/stores/screen';
+  import { storeToRefs } from 'pinia'
+  const store = useScreenSize()
+  const { isDesktop, isMobile } = storeToRefs(store)
+
   const drawer = ref(false)
   
   const route = useRoute()
@@ -12,14 +17,7 @@
 
   const selectedCity = ref(cities.find((city: any) => city.name === currentCity)) || ref()
   const selectedService = ref(clienttypes.find((clienttype: any) => clienttype.name === currentClienttype)) || ref()
-
-  const { $isMobile } = useNuxtApp()
-  const isMobile = ref()
-
-  const detectScreenSize = () => {
-    isMobile.value = $isMobile()
-  }
-  window.addEventListener('resize', detectScreenSize)
+  
   const updateService = async (event:arnopService) => {
     await navigateTo({
       path: '/',

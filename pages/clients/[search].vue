@@ -1,16 +1,13 @@
 <script lang="ts" setup>
+  import { useScreenSize } from '~~/stores/screen';
+  import { storeToRefs } from 'pinia'
+  const store = useScreenSize()
+  const { isDesktop, isMobile } = storeToRefs(store)
+  
   definePageMeta({
     middleware: ['authenticated']
   })
 
-  const { $isMobile, $isDesktop } = useNuxtApp()
-  const isMobile = ref()
-  const isDesktop = ref()
-  const detectScreenSize = () => {
-    isMobile.value = $isMobile()
-    isDesktop.value = $isDesktop()
-  }
-  window.addEventListener('resize', detectScreenSize)
 
   const route = useRoute()
   const runtimeConfig = useRuntimeConfig()
@@ -28,7 +25,6 @@
       Authorization: `Bearer ${token}`
     }
   })
-  console.log(clients)
   const updateSearch = () => {
     if (search.value === '') return
     navigateTo(`/clients/${search.value}?city=${city}&clienttype=${clienttype}`)
@@ -44,7 +40,7 @@
       prepend-inner-icon="mdi-magnify"
       @keyup.enter="updateSearch"
     />
-    <h4 v-if="route.params.search">Buscando en {{  route.query.city }}</h4>
+    <h4 v-if="route.params.search">Buscando "{{ route.params.search }}" en {{  route.query.city }}</h4>
     <p>Resultados: {{ clients!.data.pagination.total }}</p>
     <v-divider class="mt-2 mb-2" />
     <v-progress-linear

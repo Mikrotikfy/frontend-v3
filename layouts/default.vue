@@ -1,11 +1,11 @@
 <script setup lang="ts">
-  import { onMounted } from 'vue';
-
-  const { $isDesktop } = useNuxtApp()
-  const isDesktop = ref()
-
+  import { useScreenSize } from '~~/stores/screen';
+  import { storeToRefs } from 'pinia'
+  const store = useScreenSize()
+  const { isDesktop, isMobile } = storeToRefs(store)
   const detectScreenSize = () => {
-    isDesktop.value = $isDesktop()
+    console.log('resize detected')
+    store.updateScreenSize(document.body.clientWidth)
   }
   onMounted(() => {
     detectScreenSize()
@@ -33,8 +33,8 @@
             </v-card>
           </v-container>
           </ClientOnly>
-        <MainHeader v-if="!isDesktop" />
-        <MainFooter />
+        <MainHeader v-if="isMobile" />
+        <MainFooter v-if="isDesktop" />
 			</VMain>
 		</VApp>
 	</div>

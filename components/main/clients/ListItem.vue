@@ -1,19 +1,14 @@
 <script lang="ts" setup>
-    const props = defineProps({
-      client: {
-        type: [Object],
-      }
-    })
+  import { useScreenSize } from '~~/stores/screen';
+  import { storeToRefs } from 'pinia'
+  const store = useScreenSize()
+  const { isDesktop, isMobile } = storeToRefs(store)
 
-    const { $isMobile, $isDesktop } = useNuxtApp()
-    const isMobile = ref()
-    const isDesktop = ref()
-
-    const detectScreenSize = () => {
-      isMobile.value = $isMobile()
-      isDesktop.value = $isDesktop()
+  const props = defineProps({
+    client: {
+      type: [Object],
     }
-    window.addEventListener('resize', detectScreenSize)
+  })
 </script>
 <template>
   <v-list-item
