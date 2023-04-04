@@ -41,6 +41,8 @@
   <v-list-item
     active-color="primary"
     @click="evaluateSelectedAndNavigate(props.client.id)"
+    style="background-color: #f9f9f9;"
+    nav
     :value="props.client.id"
   >
     <template v-if="isDesktop" v-slot:prepend="{ isSelected }">
@@ -63,5 +65,13 @@
         `
         }}
     </v-list-item-subtitle>
+
+    <template v-slot:append>
+      <v-btn
+        color="primary"
+        icon="mdi-information"
+        variant="text"
+      ></v-btn>
+    </template>
   </v-list-item>
 </template>

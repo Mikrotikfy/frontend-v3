@@ -40,9 +40,9 @@
       prepend-inner-icon="mdi-magnify"
       @keyup.enter="updateSearch"
     />
-    <h4 v-if="route.params.search">Buscando "{{ route.params.search }}" en {{  route.query.city }}</h4>
-    <p>Resultados: {{ clients!.data.pagination.total }}</p>
-    <v-divider class="mt-2 mb-2" />
+    <h4 v-if="route.params.search" class="text-subtitle-1 font-weight-medium">Buscando "{{ route.params.search }}" en {{  route.query.city }}</h4>
+    <p class="text-medium-emphasis text-caption">Resultados: {{ clients!.data.pagination.total }}</p>
+    <v-divider class="mt-2 mb-0" />
     <v-progress-linear
       v-if="pending"
       indeterminate
@@ -52,7 +52,7 @@
       <v-col>
         <v-list
           v-model="selected"
-          :lines="isMobile ? 'three' : 'two'"
+          :lines="isMobile ? 'two' : 'two'"
           variant="flat"
           select-strategy="classic"
         >
