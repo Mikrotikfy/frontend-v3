@@ -1,5 +1,8 @@
 <script lang="ts" setup>
   import qs from 'qs'
+  definePageMeta({
+    layout: 'login'
+  })
 
   const runtimeConfig = useRuntimeConfig()
   const username = ref('')

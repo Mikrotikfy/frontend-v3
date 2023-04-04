@@ -3,7 +3,7 @@
   import { storeToRefs } from 'pinia'
   const store = useScreenSize()
   const { isDesktop, isMobile } = storeToRefs(store)
-
+  
   definePageMeta({
     middleware: ['authenticated']
   })
@@ -17,7 +17,6 @@
   const clienttype = route.query.clienttype
 
   const search = ref('')
-  const selected = ref([])
   const { pending, data: clients } = await useFetch<strapiData>(`${runtimeConfig.public.apiBase}searchclient?search=${route.params.search}&city=${city}&clienttype=${clienttype}`, {
     method: 'GET',
     headers: {
@@ -48,35 +47,5 @@
       indeterminate
       color="primary"
     />
-    <v-row style="overflow-y: scroll;overflow-y: scroll;height: calc(100vh - 258px);">
-      <v-col>
-        <v-list
-          v-model="selected"
-          :lines="isMobile ? 'three' : 'two'"
-          variant="flat"
-          select-strategy="classic"
-        >
-
-          <MainClientsListItem
-            v-for="client in clients!.data.results"
-            :key="client.id"
-            :client="client"
-          />
-
-        </v-list>
-      </v-col>
-    </v-row>
-    <div class="fill-height">
-      <div class="w-100" style="position: absolute;bottom:0px;padding-right:30px;">
-        <v-text-field
-          v-if="isMobile"
-          v-model="search"
-          label="Busqueda por Codigo, Nombre, Cedula, Barrio, Etc..."
-          variant="solo"
-          prepend-inner-icon="mdi-magnify"
-          @keyup.enter="updateSearch"
-        />
-      </div>
-    </div>
   </v-container>
 </template>

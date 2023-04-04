@@ -17,7 +17,7 @@
 
   const selectedCity = ref(cities.find((city: any) => city.name === currentCity)) || ref()
   const selectedService = ref(clienttypes.find((clienttype: any) => clienttype.name === currentClienttype)) || ref()
-  
+
   const updateService = async (event:arnopService) => {
     await navigateTo({
       path: '/',
@@ -35,6 +35,11 @@
         clienttype: selectedService.value.name,
       }
     })
+  }
+  const logout = async () => {
+    await localStorage.removeItem('auth')
+    await localStorage.removeItem('user')
+    await navigateTo('/login')
   }
 </script>
 <template>
@@ -88,7 +93,9 @@
           <v-btn variant="text" icon="mdi-dots-vertical" v-bind="props"></v-btn>
         </template>
         <v-list>
-          <v-list-item>
+          <v-list-item
+            @click="logout"
+          >
             <v-list-item-title>Cerrar Sesion</v-list-item-title>
           </v-list-item>
         </v-list>

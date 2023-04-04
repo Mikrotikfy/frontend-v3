@@ -20,6 +20,10 @@ export default defineNuxtConfig({
 		},
   ],
 
+	app: {
+    pageTransition: { name: 'page', mode: 'out-in' }
+  },
+
   runtimeConfig: {
     // The private keys which are only available server-side
     apiSecret: 'arnop',
@@ -138,14 +142,14 @@ export default defineNuxtConfig({
 			description: description,
 		},
     workbox: {
-      offlineStrategy: 'StaleWhileRevalidate',
-      offlineAssets: ['/favicon.ico', '/icon.png', '/star-bg.svg'],
-      cacheNames: {
-        prefix: 'arnop-api',
-        suffix: 'v1.0.0',
-        precache: 'precache',
-        runtime: 'runtime-cache'
-      }
+      // offlineStrategy: 'StaleWhileRevalidate',
+      // offlineAssets: ['/favicon.ico', '/icon.png', '/star-bg.svg'],
+      // cacheNames: {
+      //   prefix: 'arnop-api',
+      //   suffix: 'v1.0.0',
+      //   precache: 'precache',
+      //   runtime: 'runtime-cache'
+      // }
     }
 	},
 })

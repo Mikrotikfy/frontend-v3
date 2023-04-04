@@ -18,10 +18,10 @@
         class="red"
         style="max-height:100vh;"
       >
-        <MainHeader v-if="isDesktop" />
+        <MainDetailsHeader />
           <ClientOnly>
             <v-container
-            :style="isDesktop ? '' : 'height:calc(100% - 16px)!important;margin-top:-64px;'"
+            :style="isDesktop ? '' : 'height:calc(100% - 16px)!important;'"
             fluid
             :class="isDesktop ? 'fill-height pb-13' : 'fill-height'"
           >
@@ -32,7 +32,6 @@
             </v-card>
           </v-container>
           </ClientOnly>
-        <MainHeader v-if="isMobile" />
         <MainFooter v-if="isDesktop" />
 			</VMain>
 		</VApp>
