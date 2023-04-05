@@ -51,7 +51,9 @@
       </v-list-item-action>
     </template>
 
-    <v-list-item-title :class="isMobile ? 'text-subtitle-2' : 'text-h6'">{{ props.client.name }}</v-list-item-title>
+    <v-list-item-title :class="isMobile ? 'text-subtitle-2' : 'text-subtitle-1'">
+      {{ props.client.name }}
+    </v-list-item-title>
 
     <v-list-item-subtitle>
       {{ 
@@ -67,11 +69,13 @@
     </v-list-item-subtitle>
 
     <template v-slot:append>
-      <v-btn
-        color="primary"
-        icon="mdi-information"
-        variant="text"
-      ></v-btn>
+      <v-chip
+        class="ml-2 mb-1"
+        color="success"
+        size="small"
+      >
+        Al dia
+      </v-chip>
     </template>
   </v-list-item>
 </template>

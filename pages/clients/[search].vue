@@ -32,7 +32,10 @@
   }
 </script>
 <template>
-  <div fluid class="arnop-parent">
+  <div
+    fluid
+    :class="isDesktop ? 'arnop-parent-desktop' : 'arnop-parent-mobile'"
+  >
     <v-card
       class="fill-height rounded-lg pa-4"
     >
@@ -40,7 +43,7 @@
         v-if="isDesktop"
         v-model="search"
         label="Busqueda por Codigo, Nombre, Cedula, Barrio, Etc..."
-        variant="solo"
+        variant="outlined"
         prepend-inner-icon="mdi-magnify"
         @keyup.enter="updateSearch"
       />
@@ -56,7 +59,7 @@
         <v-col>
           <v-list
             v-model="selected"
-            :lines="isMobile ? 'two' : 'two'"
+            lines="two"
             variant="flat"
             select-strategy="classic"
           >
@@ -83,17 +86,30 @@
         </div>
       </div>
     </v-card>
-    <v-card class="fill-height rounded-lg pa-4">
-      uwu
+    <v-card 
+      v-if="isDesktop"  
+      class="fill-height d-flex justify-center align-center rounded-lg pa-4"
+    >
+      <div class="text-center">
+        <h2>Nada por aquí...</h2>
+        <p>Selecciona un cliente para iniciar</p>
+      </div>
     </v-card>
   </div>
 </template>
 
 <style>
-.arnop-parent {
+.arnop-parent-desktop {
   width:100%;
   display:grid;
   grid-template-columns: 1fr 2fr;
+  grid-gap: 14px;
+}
+.arnop-parent-mobile {
+  width:100%;
+  height: 100%;
+  display:grid;
+  grid-template-columns: 1fr;
   grid-gap: 10px;
 }
 </style>

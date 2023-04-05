@@ -23,13 +23,20 @@
             <v-container
             :style="isDesktop ? '' : 'height:calc(100% - 16px)!important;margin-top:-64px;'"
             fluid
-            :class="isDesktop ? 'fill-height pb-13' : 'fill-height'"
+            :class="isDesktop ? 'fill-height pb-12' : 'fill-height'"
           >
+          <div :class="isDesktop ? 'arnop-layout-parent-desktop' : 'arnop-layout-parent-mobile'">
+            <v-card
+              v-if="isDesktop"
+              class="rounded-lg fill-height w-100"
+            >
+              uwu
+            </v-card>
             <slot />
+          </div>
           </v-container>
           </ClientOnly>
         <MainHeader v-if="isMobile" />
-        <MainFooter v-if="isDesktop" />
 			</VMain>
 		</VApp>
 	</div>
@@ -39,5 +46,17 @@
   body {
     background-color: red;
     overflow: hidden;
+  }
+  .arnop-layout-parent-desktop {
+    width:100%;
+    display:grid;
+    grid-template-columns: 1fr 8fr;
+    grid-gap: 14px;
+  }
+  .arnop-layout-parent-mobile {
+    width:100%;
+    display:grid;
+    grid-template-columns: 1fr;
+    grid-gap: 14px;
   }
 </style>
