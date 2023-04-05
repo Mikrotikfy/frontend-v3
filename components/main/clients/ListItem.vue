@@ -1,10 +1,6 @@
 <script lang="ts" setup>
-  import { useScreenSize } from '~~/stores/screen';
   import { useClients } from '~~/stores/clients';
-  import { storeToRefs } from 'pinia'
-  const store = useScreenSize()
-  const clientsStore = useClients()
-  const { isDesktop, isMobile } = storeToRefs(store)
+  const storeClients = useClients()
 
   const route = useRoute()
 
@@ -15,11 +11,24 @@
     client: {
       type: [Object],
       required: true
+    },
+    isDesktop: {
+      type: [Boolean],
+      required: true
+    },
+    isMobile: {
+      type: [Boolean],
+      required: true
     }
   })
 
   const evaluateSelectedAndNavigate = async (id: number) => {
-    await navigateTo(`/clients/edit/${id}?city=${currentCity}&clienttype=${currentClienttype}`)
+    if (props.isDesktop) {
+      storeClients.addRemoveClient(id)
+    }
+    if (props.isMobile) {
+      await navigateTo(`/clients/edit/${id}?city=${currentCity}&clienttype=${currentClienttype}`)
+    }
   }
 
   const validateAddress = (address: Address) => {
@@ -40,10 +49,10 @@
 <template>
   <v-list-item
     active-color="primary"
-    @click="evaluateSelectedAndNavigate(props.client.id)"
     style="background-color: #f9f9f9;"
     nav
     :value="props.client.id"
+    @click="evaluateSelectedAndNavigate(props.client.id)"
   >
     <template v-if="isDesktop" v-slot:prepend="{ isSelected }">
       <v-list-item-action start>

@@ -45,18 +45,6 @@
         </v-list>
       </v-menu>
     </v-app-bar>
-
-    <v-navigation-drawer
-      v-model="drawer"
-      location="bottom"
-      temporary
-    >
-      <v-list
-        :items="menu"
-        item-title="name"
-        item-value="id"
-      ></v-list>
-    </v-navigation-drawer>
   </v-container>
 </template>
 

@@ -8,6 +8,7 @@
   })
 
   const store = useScreenSize()
+
   const { isDesktop, isMobile } = storeToRefs(store)
 
   const route = useRoute()
@@ -45,7 +46,9 @@
         label="Busqueda por Codigo, Nombre, Cedula, Barrio, Etc..."
         variant="outlined"
         prepend-inner-icon="mdi-magnify"
+        append-inner-icon="mdi-send"
         @keyup.enter="updateSearch"
+        @click:append-inner="updateSearch"
       />
       <h4 v-if="route.params.search" class="text-subtitle-1 font-weight-medium mb-2">Buscando "{{ route.params.search }}" en {{  route.query.city }}</h4>
       <v-chip
@@ -94,6 +97,8 @@
               v-for="client in clients!.data.results"
               :key="client.id"
               :client="client"
+              :is-desktop="isDesktop"
+              :is-mobile="isMobile"
             />
 
           </v-list>

@@ -8,11 +8,13 @@ export const useClients = defineStore('clients', {
   },
   actions: {
     // since we rely on `this`, we cannot use an arrow function
-    addClient(clientId: number) {
-      this.selectedClients.push(clientId)
-    },
-    removeClient(clientId: number) {
-      this.selectedClients = this.selectedClients.filter((id) => id !== clientId)
+    addRemoveClient(clientId: number) {
+      const index = this.selectedClients.indexOf(clientId)
+      if (index === -1) {
+        this.selectedClients.push(clientId)
+      } else {
+        this.selectedClients.splice(index, 1)
+      }
     }
   },
 })
