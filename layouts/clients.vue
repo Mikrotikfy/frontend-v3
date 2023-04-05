@@ -30,7 +30,7 @@
               v-if="isDesktop"
               class="rounded-lg fill-height w-100"
             >
-              uwu
+              <MainNav />
             </v-card>
             <slot />
           </div>
@@ -55,6 +55,7 @@
   }
   .arnop-layout-parent-mobile {
     width:100%;
+    height: 100%;
     display:grid;
     grid-template-columns: 1fr;
     grid-gap: 14px;

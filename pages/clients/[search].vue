@@ -47,8 +47,34 @@
         prepend-inner-icon="mdi-magnify"
         @keyup.enter="updateSearch"
       />
-      <h4 v-if="route.params.search" class="text-subtitle-1 font-weight-medium">Buscando "{{ route.params.search }}" en {{  route.query.city }}</h4>
-      <p class="text-medium-emphasis text-caption">Resultados: {{ clients!.data.pagination.total }}</p>
+      <h4 v-if="route.params.search" class="text-subtitle-1 font-weight-medium mb-2">Buscando "{{ route.params.search }}" en {{  route.query.city }}</h4>
+      <v-chip
+        size="small"
+        class="mb-2 mr-2"
+      >
+        Resultados: {{ clients!.data.pagination.total }}
+      </v-chip>
+      <v-chip
+        size="small"
+        class="mb-2 mr-2"
+        color="success"
+      >
+        Al dia: 13
+      </v-chip>
+      <v-chip
+        size="small"
+        class="mb-2 mr-2"
+        color="red lighten-1"
+      >
+        En Mora: 3
+      </v-chip>
+      <v-chip
+        size="small"
+        class="mb-2"
+        color="purple lighten-1"
+      >
+        Retirados: 1
+      </v-chip>
       <v-divider class="mt-2 mb-0" />
       <v-progress-linear
         v-if="pending"
@@ -107,7 +133,6 @@
 }
 .arnop-parent-mobile {
   width:100%;
-  height: 100%;
   display:grid;
   grid-template-columns: 1fr;
   grid-gap: 10px;
