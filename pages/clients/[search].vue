@@ -1,13 +1,14 @@
 <script lang="ts" setup>
   import { useScreenSize } from '~~/stores/screen';
   import { storeToRefs } from 'pinia'
-  const store = useScreenSize()
-  const { isDesktop, isMobile } = storeToRefs(store)
 
   definePageMeta({
+    layout: 'clients',
     middleware: ['authenticated']
   })
 
+  const store = useScreenSize()
+  const { isDesktop, isMobile } = storeToRefs(store)
 
   const route = useRoute()
   const runtimeConfig = useRuntimeConfig()
@@ -31,52 +32,68 @@
   }
 </script>
 <template>
-  <v-container fluid>
-    <v-text-field
-      v-if="isDesktop"
-      v-model="search"
-      label="Busqueda por Codigo, Nombre, Cedula, Barrio, Etc..."
-      variant="solo"
-      prepend-inner-icon="mdi-magnify"
-      @keyup.enter="updateSearch"
-    />
-    <h4 v-if="route.params.search" class="text-subtitle-1 font-weight-medium">Buscando "{{ route.params.search }}" en {{  route.query.city }}</h4>
-    <p class="text-medium-emphasis text-caption">Resultados: {{ clients!.data.pagination.total }}</p>
-    <v-divider class="mt-2 mb-0" />
-    <v-progress-linear
-      v-if="pending"
-      indeterminate
-      color="primary"
-    />
-    <v-row style="overflow-y: scroll;overflow-y: scroll;height: calc(100vh - 258px);">
-      <v-col>
-        <v-list
-          v-model="selected"
-          :lines="isMobile ? 'two' : 'two'"
-          variant="flat"
-          select-strategy="classic"
-        >
+  <div fluid class="arnop-parent">
+    <v-card
+      class="fill-height rounded-lg pa-4"
+    >
+      <v-text-field
+        v-if="isDesktop"
+        v-model="search"
+        label="Busqueda por Codigo, Nombre, Cedula, Barrio, Etc..."
+        variant="solo"
+        prepend-inner-icon="mdi-magnify"
+        @keyup.enter="updateSearch"
+      />
+      <h4 v-if="route.params.search" class="text-subtitle-1 font-weight-medium">Buscando "{{ route.params.search }}" en {{  route.query.city }}</h4>
+      <p class="text-medium-emphasis text-caption">Resultados: {{ clients!.data.pagination.total }}</p>
+      <v-divider class="mt-2 mb-0" />
+      <v-progress-linear
+        v-if="pending"
+        indeterminate
+        color="primary"
+      />
+      <v-row style="overflow-y: scroll;overflow-y: scroll;height: calc(100vh - 258px);">
+        <v-col>
+          <v-list
+            v-model="selected"
+            :lines="isMobile ? 'two' : 'two'"
+            variant="flat"
+            select-strategy="classic"
+          >
 
-          <MainClientsListItem
-            v-for="client in clients!.data.results"
-            :key="client.id"
-            :client="client"
+            <MainClientsListItem
+              v-for="client in clients!.data.results"
+              :key="client.id"
+              :client="client"
+            />
+
+          </v-list>
+        </v-col>
+      </v-row>
+      <div class="fill-height">
+        <div class="w-100" style="position: absolute;bottom:0px;padding-right:30px;">
+          <v-text-field
+            v-if="isMobile"
+            v-model="search"
+            label="Busqueda por Codigo, Nombre, Cedula, Barrio, Etc..."
+            variant="solo"
+            prepend-inner-icon="mdi-magnify"
+            @keyup.enter="updateSearch"
           />
-
-        </v-list>
-      </v-col>
-    </v-row>
-    <div class="fill-height">
-      <div class="w-100" style="position: absolute;bottom:0px;padding-right:30px;">
-        <v-text-field
-          v-if="isMobile"
-          v-model="search"
-          label="Busqueda por Codigo, Nombre, Cedula, Barrio, Etc..."
-          variant="solo"
-          prepend-inner-icon="mdi-magnify"
-          @keyup.enter="updateSearch"
-        />
+        </div>
       </div>
-    </div>
-  </v-container>
+    </v-card>
+    <v-card class="fill-height rounded-lg pa-4">
+      uwu
+    </v-card>
+  </div>
 </template>
+
+<style>
+.arnop-parent {
+  width:100%;
+  display:grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 10px;
+}
+</style>
