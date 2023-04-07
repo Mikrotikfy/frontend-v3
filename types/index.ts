@@ -117,7 +117,7 @@ declare global {
   }
   type strapiData = {
     data: {
-      results: [arnopClient] | null;
+      results: [arnopClient];
       pagination: {
         page: number;
         pageSize: number;
@@ -125,6 +125,13 @@ declare global {
         total: number;
       };
     };
+  };
+
+  type Pagination = {
+    page: number;
+    pageSize: number;
+    pageCount: number;
+    total: number;
   };
 
   type arnopClient = {
@@ -160,6 +167,7 @@ declare global {
     debtmovements: any[];
     monthlybills: any[];
     tvspec: any;
+    [Symbol.iterator](): IterableIterator<arnopClient>;
   };
   type Neighborhood = {
     id: number;

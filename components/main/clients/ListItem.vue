@@ -46,19 +46,23 @@
     }
   }
   const statusColor = (active: boolean, indebt: boolean) => {
-    if (active) {
-      return 'green'
-    } else if (indebt) {
+    if (active && indebt) {
       return 'red'
+    } else if (active && !indebt) {
+      return 'green'
+    } else if (!active && !indebt) {
+      return 'orange'
     } else {
       return 'grey'
     }
   }
   const statusText = (active: boolean, indebt: boolean) => {
-    if (active) {
-      return 'Activo'
-    } else if (indebt) {
-      return 'En mora'
+    if (active && indebt) {
+      return 'En Mora'
+    } else if (active && !indebt) {
+      return 'Al dia'
+    } else if (!active && !indebt) {
+      return 'Retirado'
     } else {
       return 'Inactivo'
     }
@@ -69,6 +73,7 @@
     active-color="primary"
     style="background-color: #f9f9f9;"
     nav
+    density="comfortable"
     :value="props.client.id"
     @click="evaluateSelectedAndNavigate(props.client)"
   >
@@ -78,10 +83,16 @@
     </v-list-item-title>
 
     <v-list-item-subtitle>
-      {{ 
+      {{ $route.query.clienttype === 'INTERNET' ?
         `
         ${props.client.code}
         ${props.client.technology.name}
+        ${validateNeighborhood(props.client.addresses.at(-1))}
+        ${validateAddress(props.client.addresses.at(-1))}
+        ${props.client.dni}
+        ${props.client.phone}
+        ` : `
+        ${props.client.code}
         ${validateNeighborhood(props.client.addresses.at(-1))}
         ${validateAddress(props.client.addresses.at(-1))}
         ${props.client.dni}

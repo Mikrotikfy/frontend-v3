@@ -8,7 +8,6 @@ export const useClients = defineStore('clients', {
   getters: {
   },
   actions: {
-    // since we rely on `this`, we cannot use an arrow function
     setUnsetClient (client: arnopClient) {
       if (this.selectedClient.id === client.id) {
         this.clearSelectedClient()

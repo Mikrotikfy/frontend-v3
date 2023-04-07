@@ -20,7 +20,7 @@
 
   const updateService = async (event:arnopService) => {
     await navigateTo({
-      path: '/',
+      path: route.path,
       query: {
         city: selectedCity.value.name,
         clienttype: event.name,
@@ -29,7 +29,7 @@
   }
   const updateCity = async (event:arnopCity) => {
     await navigateTo({
-      path: '/',
+      path: route.path,
       query: {
         city: event.name,
         clienttype: selectedService.value.name,

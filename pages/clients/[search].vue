@@ -1,6 +1,9 @@
 <script lang="ts" setup>
+  import qs from 'qs'
   import { useScreenSize } from '~~/stores/screen';
   import { storeToRefs } from 'pinia'
+  const runtimeConfig = useRuntimeConfig()
+  const route = useRoute()
 
   definePageMeta({
     layout: 'clients',
@@ -8,27 +11,58 @@
   })
 
   const store = useScreenSize()
-
   const { isDesktop, isMobile } = storeToRefs(store)
 
-  const route = useRoute()
-  const runtimeConfig = useRuntimeConfig()
   const token = JSON.parse(localStorage.getItem('auth') || '{}')._value?.jwt || ''
 
-  const city = route.query.city
-  const clienttype = route.query.clienttype
-
   const search = ref('')
-  const { pending, data: clients } = await useFetch<strapiData>(`${runtimeConfig.public.apiBase}searchclient?search=${route.params.search}&city=${city}&clienttype=${clienttype}`, {
+  
+  const clients = ref([] as arnopClient[])
+  const pagination = ref({
+    page: 1,
+    pageCount: 1,
+    pageSize: 50,
+    total: 0
+  } as Pagination)
+  const { pending, refresh } = await useFetch<strapiData>( () => `
+    ${runtimeConfig.public.apiBase}searchclient?search=${route.params.search}&city=${route.query.city}&clienttype=${route.query.clienttype}&pagination[page]=${pagination.value.page}&pagination[pageSize]=${pagination.value.pageSize}
+  `, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`
-    }
+    },
+    lazy: true,
+    transform (data: strapiData) {
+      pagination.value.pageCount = data.data.pagination.pageCount
+      pagination.value.total = data.data.pagination.total
+      clients.value.push(...data.data.results)
+      return data
+    },
+  })
+  const getMoreResults = async () => {
+    pagination.value.page++
+    refresh()
+  }
+  watch (route, () => {
+    pagination.value.page = 1
+    pagination.value.pageCount = 1
+    pagination.value.pageSize = 50
+    pagination.value.total = 0
+    clients.value = []
+    refresh()
   })
   const updateSearch = () => {
     if (search.value === '') return
-    navigateTo(`/clients/${search.value}?city=${city}&clienttype=${clienttype}`)
+    navigateTo(`/clients/${search.value}?city=${route.query.city}&clienttype=${route.query.clienttype}`)
+  }
+
+  const onScroll = (e: any) => {
+    if (e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight) {
+      if (pagination.value.page < pagination.value.pageCount) {
+        getMoreResults()
+      }
+    }
   }
 </script>
 <template>
@@ -54,28 +88,28 @@
         size="small"
         class="mb-2 mr-2"
       >
-        Resultados: {{ clients!.data.pagination.total }}
+        Mostrando: {{ clients!.length }} de {{ pagination.total }}
       </v-chip>
       <v-chip
         size="small"
         class="mb-2 mr-2"
         color="success"
       >
-        Al dia: 13
+        Al dia: {{ clients!.filter((client) => client.active && !client.indebt).length }}
       </v-chip>
       <v-chip
         size="small"
         class="mb-2 mr-2"
         color="red lighten-1"
       >
-        En Mora: 3
+        En Mora: {{ clients!.filter((client) => client.active && client.indebt).length }}
       </v-chip>
       <v-chip
         size="small"
         class="mb-2"
-        color="purple lighten-1"
+        color="orange lighten-1"
       >
-        Retirados: 1
+        Retirados: {{ clients!.filter((client) => !client.active && !client.indebt).length }}
       </v-chip>
       <v-divider class="mt-2 mb-0" />
       <v-progress-linear
@@ -83,7 +117,10 @@
         indeterminate
         color="primary"
       />
-      <v-row style="overflow-y: scroll;overflow-y: scroll;height: calc(100vh - 258px);">
+      <v-row
+        v-scroll.self="onScroll"
+        style="overflow-y: scroll;overflow-y: scroll;height: calc(100vh - 258px);"
+      >
         <v-col>
           <v-list
             lines="two"
@@ -91,7 +128,7 @@
           >
 
             <MainClientsListItem
-              v-for="client in clients!.data.results"
+              v-for="client in clients"
               :key="client.id"
               :client="client"
               :is-desktop="isDesktop"
