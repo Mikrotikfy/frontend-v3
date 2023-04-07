@@ -48,7 +48,7 @@
       }
     })
     localStorage.setItem('user', JSON.stringify(user))
-    await navigateTo(`/?city=${user.value?.cities[0].name}&clienttype=${user.value?.clienttypes[0].name}`)
+    await navigateTo(`/clients?city=${user.value?.cities[0].name}&clienttype=${user.value?.clienttypes[0].name}`)
   }
 </script>
 <template>
