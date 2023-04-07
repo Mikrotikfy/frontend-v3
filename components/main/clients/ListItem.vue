@@ -22,12 +22,12 @@
     }
   })
 
-  const evaluateSelectedAndNavigate = async (id: number) => {
+  const evaluateSelectedAndNavigate = async (client: arnopClient | any) => {
     if (props.isDesktop) {
-      storeClients.addRemoveClient(id)
+      storeClients.setUnsetClient(client)
     }
     if (props.isMobile) {
-      await navigateTo(`/clients/edit/${id}?city=${currentCity}&clienttype=${currentClienttype}`)
+      await navigateTo(`/clients/edit/${client.id}?city=${currentCity}&clienttype=${currentClienttype}`)
     }
   }
 
@@ -45,6 +45,24 @@
       return 'Sin Barrio'
     }
   }
+  const statusColor = (active: boolean, indebt: boolean) => {
+    if (active) {
+      return 'green'
+    } else if (indebt) {
+      return 'red'
+    } else {
+      return 'grey'
+    }
+  }
+  const statusText = (active: boolean, indebt: boolean) => {
+    if (active) {
+      return 'Activo'
+    } else if (indebt) {
+      return 'En mora'
+    } else {
+      return 'Inactivo'
+    }
+  }
 </script>
 <template>
   <v-list-item
@@ -52,13 +70,8 @@
     style="background-color: #f9f9f9;"
     nav
     :value="props.client.id"
-    @click="evaluateSelectedAndNavigate(props.client.id)"
+    @click="evaluateSelectedAndNavigate(props.client)"
   >
-    <template v-if="isDesktop" v-slot:prepend="{ isSelected }">
-      <v-list-item-action start>
-        <v-checkbox-btn :model-value="isSelected"></v-checkbox-btn>
-      </v-list-item-action>
-    </template>
 
     <v-list-item-title :class="isMobile ? 'text-subtitle-2' : 'text-subtitle-1'">
       {{ props.client.name }}
@@ -80,10 +93,10 @@
     <template v-slot:append>
       <v-chip
         class="ml-2 mb-1"
-        color="success"
+        :color="statusColor(props.client.active, props.client.indebt)"
         size="small"
       >
-        Al dia
+        {{ statusText(props.client.active, props.client.indebt) }}
       </v-chip>
     </template>
   </v-list-item>

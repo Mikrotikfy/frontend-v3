@@ -18,24 +18,22 @@
         class="red"
         style="max-height:100vh;"
       >
-        <MainHeader v-if="isDesktop" />
-          <ClientOnly>
-            <v-container
-            :style="isDesktop ? '' : 'height:calc(100% - 16px)!important;margin-top:-64px;'"
-            fluid
-            :class="isDesktop ? 'fill-height pb-12' : 'fill-height'"
+        <div :class="isDesktop ? 'arnop-layout-parent-desktop' : 'arnop-layout-parent-mobile'">
+          <v-sheet
+            v-if="isDesktop"
+            class="rounded-lg w-100 elevation-1"
+            style="height: calc(100% - 16px);"
           >
-          <div :class="isDesktop ? 'arnop-layout-parent-desktop' : 'arnop-layout-parent-mobile'">
-            <v-card
-              v-if="isDesktop"
-              class="rounded-lg fill-height w-100"
-            >
-              <MainNav />
-            </v-card>
-            <slot />
+            <MainNav
+            />
+          </v-sheet>
+          <div class="arnop-vertical-layout-desktop">
+            <MainHeader />
+            <ClientOnly>
+              <slot />
+            </ClientOnly>
           </div>
-          </v-container>
-          </ClientOnly>
+        </div>
         <MainHeader v-if="isMobile" />
 			</VMain>
 		</VApp>
@@ -47,10 +45,17 @@
     background-color: red;
     overflow: hidden;
   }
+  .arnop-vertical-layout-desktop {
+    display:grid;
+    grid-template-rows: auto 1fr;
+    grid-gap: 14px;
+  }
   .arnop-layout-parent-desktop {
     width:100%;
+    height:100%;
     display:grid;
     grid-template-columns: 1fr 8fr;
+    padding: 16px;
     grid-gap: 14px;
   }
   .arnop-layout-parent-mobile {
@@ -58,6 +63,5 @@
     height: 100%;
     display:grid;
     grid-template-columns: 1fr;
-    grid-gap: 14px;
   }
 </style>

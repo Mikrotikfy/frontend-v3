@@ -19,7 +19,6 @@
   const clienttype = route.query.clienttype
 
   const search = ref('')
-  const selected = ref([])
   const { pending, data: clients } = await useFetch<strapiData>(`${runtimeConfig.public.apiBase}searchclient?search=${route.params.search}&city=${city}&clienttype=${clienttype}`, {
     method: 'GET',
     headers: {
@@ -87,10 +86,8 @@
       <v-row style="overflow-y: scroll;overflow-y: scroll;height: calc(100vh - 258px);">
         <v-col>
           <v-list
-            v-model="selected"
             lines="two"
             variant="flat"
-            select-strategy="classic"
           >
 
             <MainClientsListItem
@@ -117,21 +114,16 @@
         </div>
       </div>
     </v-card>
-    <v-card 
+    <MainClientsDetails 
       v-if="isDesktop"  
-      class="fill-height d-flex justify-center align-center rounded-lg pa-4"
-    >
-      <div class="text-center">
-        <h2>Nada por aquí...</h2>
-        <p>Selecciona un cliente para iniciar</p>
-      </div>
-    </v-card>
+    />
   </div>
 </template>
 
 <style>
 .arnop-parent-desktop {
   width:100%;
+  height: calc(100% - 16px);
   display:grid;
   grid-template-columns: 1fr 2fr;
   grid-gap: 14px;
