@@ -126,6 +126,9 @@ declare global {
       };
     };
   };
+  type strapiDataNeighborhoods = {
+    data: [Neighborhood];
+  };
 
   type Pagination = {
     page: number;

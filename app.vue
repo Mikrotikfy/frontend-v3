@@ -32,14 +32,4 @@
   scrollbar-width: thin;
   scrollbar-color: #888 #f1f1f1;
 }
-
-.page-enter-active,
-.page-leave-active {
-  transition: all 0.4s;
-}
-.page-enter-from,
-.page-leave-to {
-	transform: translateX(0);
-	opacity: 1;
-}
 </style>

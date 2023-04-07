@@ -3,8 +3,14 @@
   const storeClients = useClients()
 
   const route = useRoute()
-  const tab = ref()
+  const tab = ref('tab-2')
 
+  onMounted(() => {
+    tab.value = localStorage.getItem('tab') || 'tab-2'
+  })
+  watch (tab, (val) => {
+    localStorage.setItem('tab', val)
+  })
 
   const currentCity = route.query.city
   const currentClienttype= route.query.clienttype
@@ -39,12 +45,24 @@
 
   <v-window v-model="tab">
     <v-window-item
-      v-for="i in 3"
-      :key="i"
-      :value="'tab-' + i"
+      value="tab-1"
+    >
+      <MainClientsInformation
+        :client="storeClients.selectedClient"
+      />
+    </v-window-item>
+    <v-window-item
+      value="tab-2"
     >
       <v-card>
-        <v-card-text> uwu </v-card-text>
+        <v-card-text> 2 </v-card-text>
+      </v-card>
+    </v-window-item>
+    <v-window-item
+      value="tab-3"
+    >
+      <v-card>
+        <v-card-text> 3 </v-card-text>
       </v-card>
     </v-window-item>
   </v-window>

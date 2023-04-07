@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-  import qs from 'qs'
   import { useScreenSize } from '~~/stores/screen';
   import { storeToRefs } from 'pinia'
   const runtimeConfig = useRuntimeConfig()
@@ -84,33 +83,35 @@
         @click:append-inner="updateSearch"
       />
       <h4 v-if="route.params.search" class="text-subtitle-1 font-weight-medium mb-2">Buscando "{{ route.params.search }}" en {{  route.query.city }}</h4>
-      <v-chip
-        size="small"
-        class="mb-2 mr-2"
-      >
-        Mostrando: {{ clients!.length }} de {{ pagination.total }}
-      </v-chip>
-      <v-chip
-        size="small"
-        class="mb-2 mr-2"
-        color="success"
-      >
-        Al dia: {{ clients!.filter((client) => client.active && !client.indebt).length }}
-      </v-chip>
-      <v-chip
-        size="small"
-        class="mb-2 mr-2"
-        color="red lighten-1"
-      >
-        En Mora: {{ clients!.filter((client) => client.active && client.indebt).length }}
-      </v-chip>
-      <v-chip
-        size="small"
-        class="mb-2"
-        color="orange lighten-1"
-      >
-        Retirados: {{ clients!.filter((client) => !client.active && !client.indebt).length }}
-      </v-chip>
+      <div v-if="isDesktop">
+        <v-chip
+          size="small"
+          class="mb-2 mr-2"
+        >
+          Mostrando: {{ clients!.length }} de {{ pagination.total }}
+        </v-chip>
+        <v-chip
+          size="small"
+          class="mb-2 mr-2"
+          color="success"
+        >
+          Al dia: {{ clients!.filter((client) => client.active && !client.indebt).length }}
+        </v-chip>
+        <v-chip
+          size="small"
+          class="mb-2 mr-2"
+          color="red lighten-1"
+        >
+          En Mora: {{ clients!.filter((client) => client.active && client.indebt).length }}
+        </v-chip>
+        <v-chip
+          size="small"
+          class="mb-2"
+          color="orange lighten-1"
+        >
+          Retirados: {{ clients!.filter((client) => !client.active && !client.indebt).length }}
+        </v-chip>
+      </div>
       <v-divider class="mt-2 mb-0" />
       <v-progress-linear
         v-if="pending"
